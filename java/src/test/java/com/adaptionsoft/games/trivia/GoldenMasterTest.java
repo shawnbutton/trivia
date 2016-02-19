@@ -4,6 +4,11 @@ import com.adaptionsoft.games.uglytrivia.Game;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.io.BufferedOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
@@ -28,7 +33,9 @@ public class GoldenMasterTest {
     }
 
     @Test
-    public void large_run_should_match_golden_master() {
+    public void large_run_should_match_golden_master() throws Exception {
+
+        System.setOut(new PrintStream(new BufferedOutputStream(new FileOutputStream("output.txt")), true));
 
         Game game = new Game();
 
@@ -36,7 +43,10 @@ public class GoldenMasterTest {
         game.add("player 2");
         game.add("player 3");
 
-        game.roll(0);
+        game.roll(1);
+
+
+
 
 
 
