@@ -1,5 +1,6 @@
 package com.adaptionsoft.games.trivia;
 
+import com.adaptionsoft.games.uglytrivia.Player;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;

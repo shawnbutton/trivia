@@ -1,15 +1,11 @@
 package com.adaptionsoft.games.uglytrivia;
 
-import com.adaptionsoft.games.trivia.Player;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
 
     List<Player> players = new ArrayList<Player>();
-
-//    int[] places = new int[6];
 
     int currentPlayer = 0;
     boolean isGettingOutOfPenaltyBox;
