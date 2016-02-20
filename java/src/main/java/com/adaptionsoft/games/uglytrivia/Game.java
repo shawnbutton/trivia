@@ -145,11 +145,7 @@ public class Game {
             return true;
         } else {
 
-            if (currentPlayerInPenaltyBox()) {
-                logMessage("Answer was correct!!!!");
-            } else {
-                logMessage("Answer was corrent!!!!");
-            }
+            logMessage("Answer was correct!!!!");
             purses[currentPlayer]++;
             logMessageForCurrentPlayer(" now has " + purses[currentPlayer] + " Gold Coins.");
 
