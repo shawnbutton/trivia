@@ -21,6 +21,10 @@ public class Game {
     boolean isGettingOutOfPenaltyBox;
 
     public Game() {
+        loadQuestions();
+    }
+
+    private void loadQuestions() {
         for (int i = 0; i < NUMBER_OF_QUESTIONS; i++) {
             logMessage("Adding game question");
             popQuestions.addLast("Pop Question " + i);
