@@ -18,7 +18,7 @@ public class GoldenMasterTest {
 
         Game game = new Game();
 
-        assertTrue(game.add("player 1"));
+        game.add("player 1");
         assertFalse(game.isPlayable());
 
         game.add("player 2");

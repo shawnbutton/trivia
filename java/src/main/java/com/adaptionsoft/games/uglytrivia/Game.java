@@ -23,7 +23,7 @@ public class Game {
         return (howManyPlayers() >= 2);
     }
 
-    public boolean add(String playerName) {
+    public void add(String playerName) {
 
 
         players.add(playerName);
@@ -31,7 +31,6 @@ public class Game {
 
         logMessage(playerName + " was added");
         logMessage("They are player number " + players.size());
-        return true;
     }
 
     private void initPlayerStats() {
