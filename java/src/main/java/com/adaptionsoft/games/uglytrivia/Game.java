@@ -10,7 +10,6 @@ public class Game {
     List<Player> players = new ArrayList<Player>();
 
     int[] places = new int[6];
-    int[] purses = new int[6];
     boolean[] inPenaltyBox = new boolean[6];
 
 
@@ -29,17 +28,14 @@ public class Game {
     public void add(String playerName) {
 
 
-        players.add(new Player(playerName));
-        initPlayerStats();
+        Player player = new Player(playerName);
+        players.add(player);
+        places[howManyPlayers()] = 0;
+
+        inPenaltyBox[howManyPlayers()] = false;
 
         logMessage(playerName + " was added");
         logMessage("They are player number " + players.size());
-    }
-
-    private void initPlayerStats() {
-        places[howManyPlayers()] = 0;
-        purses[howManyPlayers()] = 0;
-        inPenaltyBox[howManyPlayers()] = false;
     }
 
     public int howManyPlayers() {
@@ -122,8 +118,8 @@ public class Game {
         } else {
 
             logMessage("Answer was correct!!!!");
-            purses[currentPlayer]++;
-            logMessageForCurrentPlayer(" now has " + purses[currentPlayer] + " Gold Coins.");
+            players.get(currentPlayer).incrementPurse();
+            logMessageForCurrentPlayer(" now has " + players.get(currentPlayer).getPurse() + " Gold Coins.");
 
             boolean winner = didPlayerWin();
             incrementPlayer();
@@ -149,6 +145,6 @@ public class Game {
 
 
     private boolean didPlayerWin() {
-        return !(purses[currentPlayer] == 6);
+        return !(players.get(currentPlayer).getPurse() == 6);
     }
 }
