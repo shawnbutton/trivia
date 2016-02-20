@@ -104,11 +104,9 @@ public class Game {
     }
 
     private void askQuestion() {
-        String currentCategory = currentCategory();
-        questions.askQuestions(currentCategory);
+        int place = places[currentPlayer];
+        questions.askQuestions(place);
     }
-
-
 
     private String currentCategory() {
         return questions.getCurrentCategory(places[currentPlayer]);
