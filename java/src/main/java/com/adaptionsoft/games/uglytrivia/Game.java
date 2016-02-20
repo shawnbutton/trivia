@@ -10,7 +10,6 @@ public class Game {
     List<Player> players = new ArrayList<Player>();
 
     int[] places = new int[6];
-    boolean[] inPenaltyBox = new boolean[6];
 
     int currentPlayer = 0;
     boolean isGettingOutOfPenaltyBox;
@@ -30,8 +29,6 @@ public class Game {
         Player player = new Player(playerName);
         players.add(player);
         places[howManyPlayers()] = 0;
-
-        inPenaltyBox[howManyPlayers()] = false;
 
         logMessage(playerName + " was added");
         logMessage("They are player number " + players.size());
