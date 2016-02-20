@@ -50,37 +50,37 @@ public class Game {
     }
 
     public void roll(int roll) {
-        logMessage(messageForCurrentPlayer(" is the current player"));
+        logMessageForCurrentPlayer(" is the current player");
         logMessage("They have rolled a " + roll);
 
         if (inPenaltyBox[currentPlayer]) {
             if (notEven(roll)) {
                 isGettingOutOfPenaltyBox = true;
 
-                logMessage(messageForCurrentPlayer(" is getting out of the penalty box"));
+                logMessageForCurrentPlayer(" is getting out of the penalty box");
                 incrementCurrentPlayerPlace(roll);
 
-                logMessage(currentPlayer()
-                        + "'s new location is "
-                        + places[currentPlayer]);
+                logMessageForCurrentPlayer("'s new location is " + places[currentPlayer]);
                 logMessage("The category is " + currentCategory());
                 askQuestion();
             } else {
-                logMessage(messageForCurrentPlayer(" is not getting out of the penalty box"));
+                logMessageForCurrentPlayer(" is not getting out of the penalty box");
                 isGettingOutOfPenaltyBox = false;
             }
 
         } else {
-
             incrementCurrentPlayerPlace(roll);
 
-            logMessage(currentPlayer()
-                    + "'s new location is "
-                    + places[currentPlayer]);
+            String message = "'s new location is " + places[currentPlayer];
+            logMessageForCurrentPlayer(message);
             logMessage("The category is " + currentCategory());
             askQuestion();
         }
 
+    }
+
+    private void logMessageForCurrentPlayer(String message) {
+        logMessage(messageForCurrentPlayer(message));
     }
 
     private boolean notEven(int roll) {
@@ -170,7 +170,7 @@ public class Game {
 
     public boolean wrongAnswer() {
         logMessage("Question was incorrectly answered");
-        logMessage(messageForCurrentPlayer(" was sent to the penalty box"));
+        logMessageForCurrentPlayer(" was sent to the penalty box");
         inPenaltyBox[currentPlayer] = true;
 
         currentPlayer++;
