@@ -1,22 +1,17 @@
 package com.adaptionsoft.games.trivia;
 
 import com.adaptionsoft.games.uglytrivia.Game;
-import org.junit.Ignore;
+import org.approvaltests.Approvals;
 import org.junit.Test;
 
 import java.io.*;
-import java.net.URL;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
 public class GoldenMasterTest {
-
-    public static final String GOLDEN_RECEIVED_FILENAME = "golden.received.txt";
-    private static final String GOLDEN_APPROVED_FILENAME = "golden.approved.txt";
 
     @Test
     public void test_can_set_up_game() {
@@ -37,10 +32,8 @@ public class GoldenMasterTest {
     @Test
     public void large_run_should_match_golden_master() throws Exception {
 
-        URL path = this.getClass().getResource(GOLDEN_APPROVED_FILENAME);
-        File file = new File(path.getFile());
 
-        System.setOut(new PrintStream(new BufferedOutputStream(new FileOutputStream(file)), true));
+        OutputStream outputStream = redirectSystemOutToStream();
 
         Game game = new Game();
 
@@ -50,18 +43,17 @@ public class GoldenMasterTest {
 
         game.roll(1);
 
+        System.out.flush();
 
-//        URL path = this.getClass().getResource(GOLDEN_APPROVED_FILENAME);
-//        Reader reader = new BufferedReader(new FileReader(file));
+        Approvals.verify(outputStream.toString());
 
+    }
 
-
-        byte[] approved = Files.readAllBytes(Paths.get(GOLDEN_RECEIVED_FILENAME));
-        byte[] received = Files.readAllBytes(Paths.get(GOLDEN_APPROVED_FILENAME));
-
-        assertArrayEquals(approved, received);
-
-
+    private OutputStream redirectSystemOutToStream() {
+        OutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream ps = new PrintStream(outputStream);
+        System.setOut(ps);
+        return outputStream;
     }
 
 

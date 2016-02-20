@@ -1,0 +1,11 @@
+player 1 was added
+They are player number 1
+player 2 was added
+They are player number 2
+player 3 was added
+They are player number 3
+player 1 is the current player
+They have rolled a 1
+player 1's new location is 1
+The category is Science
+Science Question 0
