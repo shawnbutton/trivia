@@ -2,12 +2,14 @@ package com.adaptionsoft.games.trivia;
 
 public class Player {
     private final String name;
-
     private int purse;
+
+    private boolean inPenaltyBox;
 
     public Player(String name) {
         this.name = name;
         purse = 0;
+        inPenaltyBox = false;
     }
 
     public String getName() {
@@ -25,5 +27,13 @@ public class Player {
 
     public int getPurse() {
         return purse;
+    }
+
+    public boolean isInPenaltyBox() {
+        return inPenaltyBox;
+    }
+
+    public void putInPenaltyBox() {
+        this.inPenaltyBox = true;
     }
 }

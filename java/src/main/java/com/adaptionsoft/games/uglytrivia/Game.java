@@ -73,7 +73,7 @@ public class Game {
     }
 
     private boolean currentPlayerInPenaltyBox() {
-        return inPenaltyBox[currentPlayer];
+        return players.get(currentPlayer).isInPenaltyBox();
     }
 
     private void logMessageForCurrentPlayer(String message) {
@@ -137,7 +137,7 @@ public class Game {
     public boolean wrongAnswer() {
         logMessage("Question was incorrectly answered");
         logMessageForCurrentPlayer(" was sent to the penalty box");
-        inPenaltyBox[currentPlayer] = true;
+        players.get(currentPlayer).putInPenaltyBox();
 
         incrementPlayer();
         return true;
