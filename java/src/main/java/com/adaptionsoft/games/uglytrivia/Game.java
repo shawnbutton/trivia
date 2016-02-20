@@ -54,11 +54,10 @@ public class Game {
         logMessage("They have rolled a " + roll);
 
         if (inPenaltyBox[currentPlayer]) {
-            if (roll % 2 != 0) {
+            if (notEven(roll)) {
                 isGettingOutOfPenaltyBox = true;
 
-                String message = "is getting out of the penalty box";
-                logMessage(currentPlayer() + " " + message);
+                logMessage(messageForCurrentPlayer(" is getting out of the penalty box"));
                 incrementCurrentPlayerPlace(roll);
 
                 logMessage(currentPlayer()
@@ -67,8 +66,7 @@ public class Game {
                 logMessage("The category is " + currentCategory());
                 askQuestion();
             } else {
-                String message = " is not getting out of the penalty box";
-                logMessage(messageForCurrentPlayer(message));
+                logMessage(messageForCurrentPlayer(" is not getting out of the penalty box"));
                 isGettingOutOfPenaltyBox = false;
             }
 
@@ -83,6 +81,10 @@ public class Game {
             askQuestion();
         }
 
+    }
+
+    private boolean notEven(int roll) {
+        return roll % 2 != 0;
     }
 
     private String messageForCurrentPlayer(String message) {
