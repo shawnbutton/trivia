@@ -29,15 +29,14 @@
                 <version>1.1.9</version>
                 <configuration>
                     <targetClasses>
-                        <param>com.leanintuit.gildedrose.*</param>
+                        <param>com.adaptionsoft.games.*</param>
                     </targetClasses>
                     <targetTests>
-                        <param>com.leanintuit.gildedrose.*</param>
+                        <param>com.adaptionsoft.games.*</param>
                     </targetTests>
-                    <excludedClasses>
-                        <param>com.leanintuit.gildedrose.InventoryApprovalTest</param>
-                        <param>com.leanintuit.gildedrose.InventoryViceTest</param>
-                    </excludedClasses>
+                    <!--<excludedClasses>-->
+                        <!--<param></param>-->
+                    <!--</excludedClasses>-->
                 </configuration>
             </plugin>
             <plugin>
