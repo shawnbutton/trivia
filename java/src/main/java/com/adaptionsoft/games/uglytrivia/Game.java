@@ -20,7 +20,7 @@ public class Game {
 
     public Game() {
         for (int i = 0; i < 50; i++) {
-            System.out.println("Adding game question");
+            logMessage("Adding game question");
             popQuestions.addLast("Pop Question " + i);
             scienceQuestions.addLast(("Science Question " + i));
             sportsQuestions.addLast(("Sports Question " + i));
@@ -40,8 +40,8 @@ public class Game {
         purses[howManyPlayers()] = 0;
         inPenaltyBox[howManyPlayers()] = false;
 
-        System.out.println(playerName + " was added");
-        System.out.println("They are player number " + players.size());
+        logMessage(playerName + " was added");
+        logMessage("They are player number " + players.size());
         return true;
     }
 
@@ -50,23 +50,25 @@ public class Game {
     }
 
     public void roll(int roll) {
-        System.out.println(currentPlayer() + " is the current player");
-        System.out.println("They have rolled a " + roll);
+        logMessage(messageForCurrentPlayer(" is the current player"));
+        logMessage("They have rolled a " + roll);
 
         if (inPenaltyBox[currentPlayer]) {
             if (roll % 2 != 0) {
                 isGettingOutOfPenaltyBox = true;
 
-                System.out.println(currentPlayer() + " is getting out of the penalty box");
+                String message = "is getting out of the penalty box";
+                logMessage(currentPlayer() + " " + message);
                 incrementCurrentPlayerPlace(roll);
 
-                System.out.println(currentPlayer()
+                logMessage(currentPlayer()
                         + "'s new location is "
                         + places[currentPlayer]);
-                System.out.println("The category is " + currentCategory());
+                logMessage("The category is " + currentCategory());
                 askQuestion();
             } else {
-                System.out.println(currentPlayer() + " is not getting out of the penalty box");
+                String message = " is not getting out of the penalty box";
+                logMessage(messageForCurrentPlayer(message));
                 isGettingOutOfPenaltyBox = false;
             }
 
@@ -74,13 +76,21 @@ public class Game {
 
             incrementCurrentPlayerPlace(roll);
 
-            System.out.println(currentPlayer()
+            logMessage(currentPlayer()
                     + "'s new location is "
                     + places[currentPlayer]);
-            System.out.println("The category is " + currentCategory());
+            logMessage("The category is " + currentCategory());
             askQuestion();
         }
 
+    }
+
+    private String messageForCurrentPlayer(String message) {
+        return currentPlayer() + message;
+    }
+
+    private void logMessage(String x) {
+        System.out.println(x);
     }
 
     private void incrementCurrentPlayerPlace(int roll) {
@@ -120,9 +130,9 @@ public class Game {
     public boolean wasCorrectlyAnswered() {
         if (inPenaltyBox[currentPlayer]) {
             if (isGettingOutOfPenaltyBox) {
-                System.out.println("Answer was correct!!!!");
+                logMessage("Answer was correct!!!!");
                 purses[currentPlayer]++;
-                System.out.println(currentPlayer()
+                logMessage(currentPlayer()
                         + " now has "
                         + purses[currentPlayer]
                         + " Gold Coins.");
@@ -141,9 +151,9 @@ public class Game {
 
         } else {
 
-            System.out.println("Answer was corrent!!!!");
+            logMessage("Answer was corrent!!!!");
             purses[currentPlayer]++;
-            System.out.println(currentPlayer()
+            logMessage(currentPlayer()
                     + " now has "
                     + purses[currentPlayer]
                     + " Gold Coins.");
@@ -157,8 +167,8 @@ public class Game {
     }
 
     public boolean wrongAnswer() {
-        System.out.println("Question was incorrectly answered");
-        System.out.println(currentPlayer() + " was sent to the penalty box");
+        logMessage("Question was incorrectly answered");
+        logMessage(messageForCurrentPlayer(" was sent to the penalty box"));
         inPenaltyBox[currentPlayer] = true;
 
         currentPlayer++;
