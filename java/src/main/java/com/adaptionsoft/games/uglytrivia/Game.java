@@ -5,6 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Game {
+    public static final int NUMBER_OF_QUESTIONS = 50;
+
     List players = new ArrayList();
     int[] places = new int[6];
     int[] purses = new int[6];
@@ -19,7 +21,7 @@ public class Game {
     boolean isGettingOutOfPenaltyBox;
 
     public Game() {
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < NUMBER_OF_QUESTIONS; i++) {
             logMessage("Adding game question");
             popQuestions.addLast("Pop Question " + i);
             scienceQuestions.addLast(("Science Question " + i));
@@ -36,13 +38,17 @@ public class Game {
 
 
         players.add(playerName);
-        places[howManyPlayers()] = 0;
-        purses[howManyPlayers()] = 0;
-        inPenaltyBox[howManyPlayers()] = false;
+        initPlayerStats();
 
         logMessage(playerName + " was added");
         logMessage("They are player number " + players.size());
         return true;
+    }
+
+    private void initPlayerStats() {
+        places[howManyPlayers()] = 0;
+        purses[howManyPlayers()] = 0;
+        inPenaltyBox[howManyPlayers()] = false;
     }
 
     public int howManyPlayers() {
@@ -53,7 +59,7 @@ public class Game {
         logMessageForCurrentPlayer(" is the current player");
         logMessage("They have rolled a " + roll);
 
-        if (inPenaltyBox[currentPlayer]) {
+        if (currentPlayerInPenaltyBox()) {
             if (notEven(roll)) {
                 isGettingOutOfPenaltyBox = true;
 
@@ -77,6 +83,10 @@ public class Game {
             askQuestion();
         }
 
+    }
+
+    private boolean currentPlayerInPenaltyBox() {
+        return inPenaltyBox[currentPlayer];
     }
 
     private void logMessageForCurrentPlayer(String message) {
@@ -130,7 +140,7 @@ public class Game {
     }
 
     public boolean wasCorrectlyAnswered() {
-        if (inPenaltyBox[currentPlayer]) {
+        if (currentPlayerInPenaltyBox()) {
             if (isGettingOutOfPenaltyBox) {
                 logMessage("Answer was correct!!!!");
                 purses[currentPlayer]++;
@@ -140,13 +150,11 @@ public class Game {
                         + " Gold Coins.");
 
                 boolean winner = didPlayerWin();
-                currentPlayer++;
-                if (currentPlayer == players.size()) currentPlayer = 0;
+                incrementPlayer();
 
                 return winner;
             } else {
-                currentPlayer++;
-                if (currentPlayer == players.size()) currentPlayer = 0;
+                incrementPlayer();
                 return true;
             }
 
@@ -161,11 +169,15 @@ public class Game {
                     + " Gold Coins.");
 
             boolean winner = didPlayerWin();
-            currentPlayer++;
-            if (currentPlayer == players.size()) currentPlayer = 0;
+            incrementPlayer();
 
             return winner;
         }
+    }
+
+    private void incrementPlayer() {
+        currentPlayer++;
+        if (currentPlayer == players.size()) currentPlayer = 0;
     }
 
     public boolean wrongAnswer() {
@@ -173,8 +185,7 @@ public class Game {
         logMessageForCurrentPlayer(" was sent to the penalty box");
         inPenaltyBox[currentPlayer] = true;
 
-        currentPlayer++;
-        if (currentPlayer == players.size()) currentPlayer = 0;
+        incrementPlayer();
         return true;
     }
 
