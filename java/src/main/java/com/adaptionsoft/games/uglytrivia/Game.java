@@ -140,25 +140,16 @@ public class Game {
     }
 
     public boolean wasCorrectlyAnswered() {
-        if (currentPlayerInPenaltyBox()) {
-            if (isGettingOutOfPenaltyBox) {
-                logMessage("Answer was correct!!!!");
-                purses[currentPlayer]++;
-                logMessageForCurrentPlayer(" now has " + purses[currentPlayer] + " Gold Coins.");
-
-                boolean winner = didPlayerWin();
-                incrementPlayer();
-
-                return winner;
-            } else {
-                incrementPlayer();
-                return true;
-            }
-
-
+        if (currentPlayerInPenaltyBox() && !isGettingOutOfPenaltyBox) {
+            incrementPlayer();
+            return true;
         } else {
 
-            logMessage("Answer was corrent!!!!");
+            if (currentPlayerInPenaltyBox()) {
+                logMessage("Answer was correct!!!!");
+            } else {
+                logMessage("Answer was corrent!!!!");
+            }
             purses[currentPlayer]++;
             logMessageForCurrentPlayer(" now has " + purses[currentPlayer] + " Gold Coins.");
 
@@ -167,6 +158,7 @@ public class Game {
 
             return winner;
         }
+
     }
 
     private void incrementPlayer() {
