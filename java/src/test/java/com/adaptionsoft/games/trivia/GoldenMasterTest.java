@@ -18,7 +18,7 @@ public class GoldenMasterTest {
 
         Game game = new Game();
 
-        game.add("player 1");
+        assertTrue(game.add("player 1"));
         assertFalse(game.isPlayable());
 
         game.add("player 2");
@@ -26,6 +26,10 @@ public class GoldenMasterTest {
 
         game.add("player 3");
         assertThat(game.howManyPlayers(), is(3));
+
+        assertTrue(game.wrongAnswer());
+        assertTrue(game.wasCorrectlyAnswered());
+
 
     }
 
@@ -40,8 +44,26 @@ public class GoldenMasterTest {
         game.add("player 1");
         game.add("player 2");
         game.add("player 3");
+        game.add("player 4");
+        game.add("player 5");
 
-        game.roll(1);
+        int roll = 0;
+
+        for (int i = 0; i < 300; i++) {
+
+            roll++;
+            if (roll > 6) {
+                roll = 1;
+            }
+            game.roll(roll);
+
+            if (i%3 == 0) {
+                game.wrongAnswer();
+            } else {
+                game.wasCorrectlyAnswered();
+            }
+
+        }
 
         System.out.flush();
 
