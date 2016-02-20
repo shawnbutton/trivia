@@ -2,9 +2,6 @@ package com.adaptionsoft.games.uglytrivia;
 
 import java.util.LinkedList;
 
-/**
- * Created by shawnbutton on 2016-02-20.
- */
 public class Questions {
 
     LinkedList popQuestions = new LinkedList();
@@ -13,7 +10,11 @@ public class Questions {
     LinkedList rockQuestions = new LinkedList();
 
 
-    public void loadQuestions() {
+    public Questions() {
+        loadQuestions();
+    }
+
+    private void loadQuestions() {
         for (int i = 0; i < 50; i++) {
             logMessage("Adding game question");
             popQuestions.addLast("Pop Question " + i);
@@ -22,6 +23,20 @@ public class Questions {
             rockQuestions.addLast("Rock Question " + i);
         }
     }
+
+    public String getCurrentCategory(int currentPlayerPlace) {
+        if (currentPlayerPlace == 0) return "Pop";
+        if (currentPlayerPlace == 4) return "Pop";
+        if (currentPlayerPlace == 8) return "Pop";
+        if (currentPlayerPlace == 1) return "Science";
+        if (currentPlayerPlace == 5) return "Science";
+        if (currentPlayerPlace == 9) return "Science";
+        if (currentPlayerPlace == 2) return "Sports";
+        if (currentPlayerPlace == 6) return "Sports";
+        if (currentPlayerPlace == 10) return "Sports";
+        return "Rock";
+    }
+
 
     public void askQuestions(String currentCategory) {
         if (currentCategory == "Pop")
