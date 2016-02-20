@@ -1,11 +1,14 @@
 package com.adaptionsoft.games.uglytrivia;
 
+import com.adaptionsoft.games.trivia.Player;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
 
-    List players = new ArrayList();
+    List<Player> players = new ArrayList<Player>();
+
     int[] places = new int[6];
     int[] purses = new int[6];
     boolean[] inPenaltyBox = new boolean[6];
@@ -26,7 +29,7 @@ public class Game {
     public void add(String playerName) {
 
 
-        players.add(playerName);
+        players.add(new Player(playerName));
         initPlayerStats();
 
         logMessage(playerName + " was added");

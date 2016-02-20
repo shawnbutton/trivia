@@ -36,7 +36,6 @@ public class GoldenMasterTest {
     @Test
     public void large_run_should_match_golden_master() throws Exception {
 
-
         OutputStream outputStream = redirectSystemOutToStream();
 
         Game game = new Game();
