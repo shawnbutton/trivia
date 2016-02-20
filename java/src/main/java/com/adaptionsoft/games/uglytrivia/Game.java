@@ -9,7 +9,7 @@ public class Game {
 
     List<Player> players = new ArrayList<Player>();
 
-    int[] places = new int[6];
+//    int[] places = new int[6];
 
     int currentPlayer = 0;
     boolean isGettingOutOfPenaltyBox;
@@ -24,11 +24,8 @@ public class Game {
     }
 
     public void add(String playerName) {
-
-
         Player player = new Player(playerName);
         players.add(player);
-        places[howManyPlayers()] = 0;
 
         logMessage(playerName + " was added");
         logMessage("They are player number " + players.size());
@@ -49,7 +46,7 @@ public class Game {
                 logMessageForCurrentPlayer(" is getting out of the penalty box");
                 incrementCurrentPlayerPlace(roll);
 
-                logMessageForCurrentPlayer("'s new location is " + places[currentPlayer]);
+                logMessageForCurrentPlayer("'s new location is " + players.get(currentPlayer).getPlace());
                 logMessage("The category is " + currentCategory());
                 askQuestion();
             } else {
@@ -60,8 +57,7 @@ public class Game {
         } else {
             incrementCurrentPlayerPlace(roll);
 
-            String message = "'s new location is " + places[currentPlayer];
-            logMessageForCurrentPlayer(message);
+            logMessageForCurrentPlayer("'s new location is " + players.get(currentPlayer).getPlace());
             logMessage("The category is " + currentCategory());
             askQuestion();
         }
@@ -89,8 +85,7 @@ public class Game {
     }
 
     private void incrementCurrentPlayerPlace(int roll) {
-        places[currentPlayer] = places[currentPlayer] + roll;
-        if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
+        players.get(currentPlayer).addRollToPlace(roll);
     }
 
     private Object currentPlayer() {
@@ -98,12 +93,12 @@ public class Game {
     }
 
     private void askQuestion() {
-        int place = places[currentPlayer];
+        int place = players.get(currentPlayer).getPlace();
         questions.askQuestions(place);
     }
 
     private String currentCategory() {
-        return questions.getCurrentCategory(places[currentPlayer]);
+        return questions.getCurrentCategory(players.get(currentPlayer).getPlace());
     }
 
 
