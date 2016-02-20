@@ -144,10 +144,7 @@ public class Game {
             if (isGettingOutOfPenaltyBox) {
                 logMessage("Answer was correct!!!!");
                 purses[currentPlayer]++;
-                logMessage(currentPlayer()
-                        + " now has "
-                        + purses[currentPlayer]
-                        + " Gold Coins.");
+                logMessageForCurrentPlayer(" now has " + purses[currentPlayer] + " Gold Coins.");
 
                 boolean winner = didPlayerWin();
                 incrementPlayer();
@@ -163,10 +160,7 @@ public class Game {
 
             logMessage("Answer was corrent!!!!");
             purses[currentPlayer]++;
-            logMessage(currentPlayer()
-                    + " now has "
-                    + purses[currentPlayer]
-                    + " Gold Coins.");
+            logMessageForCurrentPlayer(" now has " + purses[currentPlayer] + " Gold Coins.");
 
             boolean winner = didPlayerWin();
             incrementPlayer();
