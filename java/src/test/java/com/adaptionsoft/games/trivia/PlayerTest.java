@@ -23,4 +23,13 @@ public class PlayerTest {
         assertThat(player.getPurse(), is(1));
     }
 
+    @Test
+    public void player_should_be_able_to_be_in_penalty_box() {
+        Player player = new Player("Bob");
+        assertThat(player.isInPenaltyBox(), is(false));
+
+        player.putInPenaltyBox();
+        assertThat(player.isInPenaltyBox(), is(true));
+    }
+
 }

@@ -12,7 +12,6 @@ public class Game {
     int[] places = new int[6];
     boolean[] inPenaltyBox = new boolean[6];
 
-
     int currentPlayer = 0;
     boolean isGettingOutOfPenaltyBox;
     private final Questions questions;
