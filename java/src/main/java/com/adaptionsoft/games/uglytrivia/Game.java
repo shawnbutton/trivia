@@ -5,9 +5,10 @@ import java.util.List;
 
 public class Game {
 
-    List<Player> players = new ArrayList<Player>();
+//    List<Player> players = new ArrayList<Player>();
 
-    int currentPlayer = 0;
+    Players players_t = new Players();
+
     boolean isGettingOutOfPenaltyBox;
     private final Questions questions;
 
@@ -21,14 +22,14 @@ public class Game {
 
     public void add(String playerName) {
         Player player = new Player(playerName);
-        players.add(player);
+//        players.add(player);
 
-        logMessage(playerName + " was added");
-        logMessage("They are player number " + players.size());
+        players_t.add(player);
+
     }
 
     public int howManyPlayers() {
-        return players.size();
+        return players_t.size();
     }
 
     public void roll(int roll) {
@@ -42,7 +43,7 @@ public class Game {
                 logMessageForCurrentPlayer(" is getting out of the penalty box");
                 incrementCurrentPlayerPlace(roll);
 
-                logMessageForCurrentPlayer("'s new location is " + players.get(currentPlayer).getPlace());
+                logMessageForCurrentPlayer("'s new location is " + getCurrentPlayer().getPlace());
                 logMessage("The category is " + currentCategory());
                 askQuestion();
             } else {
@@ -53,7 +54,7 @@ public class Game {
         } else {
             incrementCurrentPlayerPlace(roll);
 
-            logMessageForCurrentPlayer("'s new location is " + players.get(currentPlayer).getPlace());
+            logMessageForCurrentPlayer("'s new location is " + getCurrentPlayer().getPlace());
             logMessage("The category is " + currentCategory());
             askQuestion();
         }
@@ -61,7 +62,7 @@ public class Game {
     }
 
     private boolean currentPlayerInPenaltyBox() {
-        return players.get(currentPlayer).isInPenaltyBox();
+        return getCurrentPlayer().isInPenaltyBox();
     }
 
     private void logMessageForCurrentPlayer(String message) {
@@ -81,20 +82,20 @@ public class Game {
     }
 
     private void incrementCurrentPlayerPlace(int roll) {
-        players.get(currentPlayer).addRollToPlace(roll);
+        getCurrentPlayer().addRollToPlace(roll);
     }
 
-    private Object currentPlayer() {
-        return players.get(currentPlayer);
+    private Player currentPlayer() {
+        return getCurrentPlayer();
     }
 
     private void askQuestion() {
-        int place = players.get(currentPlayer).getPlace();
+        int place = getCurrentPlayer().getPlace();
         questions.askQuestions(place);
     }
 
     private String currentCategory() {
-        return questions.getCurrentCategory(players.get(currentPlayer).getPlace());
+        return questions.getCurrentCategory(getCurrentPlayer().getPlace());
     }
 
 
@@ -105,8 +106,8 @@ public class Game {
         } else {
 
             logMessage("Answer was correct!!!!");
-            players.get(currentPlayer).incrementPurse();
-            logMessageForCurrentPlayer(" now has " + players.get(currentPlayer).getPurse() + " Gold Coins.");
+            getCurrentPlayer().incrementPurse();
+            logMessageForCurrentPlayer(" now has " + getCurrentPlayer().getPurse() + " Gold Coins.");
 
             boolean winner = didPlayerWin();
             incrementPlayer();
@@ -117,21 +118,26 @@ public class Game {
     }
 
     private void incrementPlayer() {
-        currentPlayer++;
-        if (currentPlayer == players.size()) currentPlayer = 0;
+        players_t.incrementPlayer();
     }
+
+
 
     public boolean wrongAnswer() {
         logMessage("Question was incorrectly answered");
         logMessageForCurrentPlayer(" was sent to the penalty box");
-        players.get(currentPlayer).putInPenaltyBox();
+        getCurrentPlayer().putInPenaltyBox();
 
         incrementPlayer();
         return true;
     }
 
+    private Player getCurrentPlayer() {
+        return players_t.getCurrentPlayer();
+    }
+
 
     private boolean didPlayerWin() {
-        return !(players.get(currentPlayer).getPurse() == 6);
+        return !(getCurrentPlayer().getPurse() == 6);
     }
 }
